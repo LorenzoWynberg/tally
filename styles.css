@@ -84,6 +84,9 @@
   /* Fluid type */
   --count-fluid: 22vw;
 
+  /* Touch target */
+  --control-min-touch: 44px;
+
   /* Motion */
   --duration-fast: 120ms;
   --duration-base: 180ms;
@@ -212,7 +215,7 @@ body {
 }
 
 .reset-button {
-  min-height: 44px;
+  min-height: var(--control-min-touch);
   padding: var(--spacing-2) var(--spacing-4);
   display: inline-flex;
   align-items: center;
