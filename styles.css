@@ -1,0 +1,274 @@
+/*
+ * Theme layer — the "Design system" (Quiet Indigo) tokens from DESIGN.md.
+ * DESIGN.md is the source of every value here; components below read roles
+ * and scales only, never a literal colour, length, shadow or timing.
+ */
+:root {
+  color-scheme: light dark;
+
+  /* Colour roles — light facet */
+  --background: oklch(0.985 0.003 265);
+  --surface: oklch(0.965 0.005 265);
+  --elevated: oklch(1 0 0);
+  --foreground: oklch(0.22 0.02 265);
+  --muted: oklch(0.48 0.02 265);
+  --primary: oklch(0.5 0.2 265);
+  --on-primary: oklch(0.99 0 0);
+  --secondary: oklch(0.52 0.04 265);
+  --on-secondary: oklch(0.99 0 0);
+  --accent: oklch(0.52 0.14 290);
+  --on-accent: oklch(0.99 0 0);
+  --danger: oklch(0.55 0.2 25);
+  --on-danger: oklch(0.99 0 0);
+  --warning: oklch(0.64 0.14 65);
+  --on-warning: oklch(0.18 0.03 65);
+  --success: oklch(0.52 0.13 150);
+  --on-success: oklch(0.99 0 0);
+  --info: oklch(0.52 0.13 245);
+  --on-info: oklch(0.99 0 0);
+  --border: oklch(0.9 0.01 265);
+  --input: oklch(0.88 0.01 265);
+  --ring: oklch(0.55 0.2 265);
+
+  /* Elevation — light facet */
+  --elevation-2xs: 0 1px rgb(0 0 0 / 0.05);
+  --elevation-xs: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+  --elevation-sm: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
+  --elevation-md:
+    0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+  --elevation-lg:
+    0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+  --elevation-xl:
+    0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
+  --elevation-2xl: 0 25px 50px -12px rgb(0 0 0 / 0.25);
+
+  /* Typography — the design names "System" for both families */
+  --font-system:
+    system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial,
+    sans-serif;
+  --font-display: var(--font-system);
+  --font-body: var(--font-system);
+  --text-xs: 0.75rem;
+  --text-sm: 0.875rem;
+  --text-base: 1rem;
+  --text-lg: 1.125rem;
+  --text-xl: 1.25rem;
+  --text-2xl: 1.5rem;
+  --text-3xl: 1.875rem;
+  --text-4xl: 2.25rem;
+  --leading-tight: 1.25;
+  --leading-snug: 1.375;
+  --leading-normal: 1.5;
+  --leading-relaxed: 1.625;
+
+  /* Spacing */
+  --spacing: 0.25rem;
+  --spacing-1: calc(var(--spacing) * 1);
+  --spacing-2: calc(var(--spacing) * 2);
+  --spacing-3: calc(var(--spacing) * 3);
+  --spacing-4: calc(var(--spacing) * 4);
+  --spacing-6: calc(var(--spacing) * 6);
+  --spacing-8: calc(var(--spacing) * 8);
+  --spacing-12: calc(var(--spacing) * 12);
+
+  /* Shapes */
+  --radius: 0.625rem;
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --radius-2xl: calc(var(--radius) + 8px);
+  --radius-3xl: calc(var(--radius) + 12px);
+  --radius-4xl: calc(var(--radius) + 16px);
+
+  /* Fluid type */
+  --count-fluid: 22vw;
+
+  /* Touch target */
+  --control-min-touch: 44px;
+
+  /* Motion */
+  --duration-fast: 120ms;
+  --duration-base: 180ms;
+  --duration-slow: 240ms;
+  --ease-standard: cubic-bezier(0.2, 0, 0, 1);
+  --ease-entrance: cubic-bezier(0, 0, 0.2, 1);
+  --ease-exit: cubic-bezier(0.4, 0, 1, 1);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    /* Colour roles — dark facet */
+    --background: oklch(0.17 0.01 265);
+    --surface: oklch(0.21 0.012 265);
+    --elevated: oklch(0.25 0.014 265);
+    --foreground: oklch(0.95 0.005 265);
+    --muted: oklch(0.72 0.015 265);
+    --primary: oklch(0.68 0.15 265);
+    --on-primary: oklch(0.17 0.02 265);
+    --secondary: oklch(0.7 0.04 265);
+    --on-secondary: oklch(0.17 0.01 265);
+    --accent: oklch(0.72 0.13 290);
+    --on-accent: oklch(0.17 0.02 290);
+    --danger: oklch(0.68 0.17 25);
+    --on-danger: oklch(0.17 0.02 25);
+    --warning: oklch(0.8 0.14 75);
+    --on-warning: oklch(0.2 0.03 75);
+    --success: oklch(0.74 0.14 150);
+    --on-success: oklch(0.17 0.02 150);
+    --info: oklch(0.74 0.11 235);
+    --on-info: oklch(0.17 0.02 235);
+    --border: oklch(0.3 0.015 265);
+    --input: oklch(0.33 0.015 265);
+    --ring: oklch(0.68 0.15 265);
+
+    /* Elevation — dark facet */
+    --elevation-2xs: 0 0 1px rgb(0 0 0 / 0.3);
+    --elevation-xs: 0 1px 3px 0 rgb(0 0 0 / 0.3);
+    --elevation-sm: 0 1px 6px 0 rgb(0 0 0 / 0.35);
+    --elevation-md: 0 2px 12px 0 rgb(0 0 0 / 0.4);
+    --elevation-lg: 0 4px 20px 0 rgb(0 0 0 / 0.45);
+    --elevation-xl: 0 8px 32px 0 rgb(0 0 0 / 0.5);
+    --elevation-2xl: 0 12px 48px 0 rgb(0 0 0 / 0.6);
+  }
+}
+
+/* Page */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+}
+
+body {
+  min-height: 100vh;
+  min-height: 100dvh;
+  display: flex;
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-body);
+  font-size: var(--text-base);
+  line-height: var(--leading-normal);
+}
+
+.tally {
+  margin: auto;
+  width: 100%;
+  max-width: calc(var(--spacing) * 120);
+  padding: var(--spacing-8) var(--spacing-6);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--spacing-8);
+  text-align: center;
+}
+
+/* The count is the hero: sized off the largest type step, scaled with the viewport. */
+.count {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: clamp(
+    calc(var(--text-4xl) * 2),
+    var(--count-fluid),
+    calc(var(--text-4xl) * 3.5)
+  );
+  line-height: var(--leading-tight);
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  color: var(--foreground);
+  overflow-wrap: anywhere;
+}
+
+.tap-button {
+  width: 100%;
+  max-width: calc(var(--spacing) * 72);
+  padding: var(--spacing-8) var(--spacing-12);
+  border: 2px solid var(--primary);
+  border-radius: var(--radius-2xl);
+  background: var(--primary);
+  color: var(--on-primary);
+  box-shadow: var(--elevation-md);
+  font-family: inherit;
+  font-size: var(--text-4xl);
+  line-height: var(--leading-tight);
+  font-weight: 700;
+  cursor: pointer;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+  user-select: none;
+  /* --ease-entrance is the ease-out (decelerate) curve: a quick settle, no overshoot. */
+  transition: transform var(--duration-fast) var(--ease-entrance);
+}
+
+.tap-button:active {
+  transform: scale(0.95);
+}
+
+.tap-button:focus-visible {
+  outline: 3px solid var(--ring);
+  outline-offset: 4px;
+}
+
+.reset-button {
+  min-height: var(--control-min-touch);
+  padding: var(--spacing-2) var(--spacing-4);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  /* --border is a hairline divider colour (~1.3:1 against --background in
+     both facets) — too faint to mark a control's boundary at 3:1 (WCAG
+     1.4.11). --muted clears 3:1 in both facets and still reads as secondary. */
+  border: 1px solid var(--muted);
+  border-radius: var(--radius-md);
+  background: transparent;
+  color: var(--muted);
+  font-family: inherit;
+  font-size: var(--text-sm);
+  line-height: var(--leading-normal);
+  cursor: pointer;
+  touch-action: manipulation;
+}
+
+.reset-button:hover {
+  color: var(--foreground);
+  border-color: var(--foreground);
+}
+
+.reset-button:focus-visible {
+  outline: 3px solid var(--ring);
+  outline-offset: 2px;
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  clip-path: inset(50%);
+  white-space: nowrap;
+  border: 0;
+}
+
+@media (min-width: 768px) {
+  .tally {
+    gap: var(--spacing-12);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .tap-button {
+    transition: none;
+  }
+
+  .tap-button:active {
+    transform: none;
+  }
+}
