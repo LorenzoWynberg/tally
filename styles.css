@@ -81,6 +81,12 @@
   --radius-3xl: calc(var(--radius) + 12px);
   --radius-4xl: calc(var(--radius) + 16px);
 
+  /* Fluid type */
+  --count-fluid: 22vw;
+
+  /* Touch target */
+  --control-min-touch: 44px;
+
   /* Motion */
   --duration-fast: 120ms;
   --duration-base: 180ms;
@@ -168,7 +174,7 @@ body {
   font-family: var(--font-display);
   font-size: clamp(
     calc(var(--text-4xl) * 2),
-    22vw,
+    var(--count-fluid),
     calc(var(--text-4xl) * 3.5)
   );
   line-height: var(--leading-tight);
@@ -209,7 +215,11 @@ body {
 }
 
 .reset-button {
+  min-height: var(--control-min-touch);
   padding: var(--spacing-2) var(--spacing-4);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
   /* --border is a hairline divider colour (~1.3:1 against --background in
      both facets) — too faint to mark a control's boundary at 3:1 (WCAG
      1.4.11). --muted clears 3:1 in both facets and still reads as secondary. */
