@@ -116,8 +116,43 @@ test.describe("with working storage", () => {
     await page.getByRole("button", { name: "Add one" }).click();
 
     await expect(other.locator("#count")).toHaveText("2");
-    // Sync is display-only: the other tab does not announce another tab's taps.
-    await expect(other.locator("#live-region")).toHaveText("");
+    // The other tab announces the synced count too, so a screen reader
+    // user there learns of the change without needing to re-visit it (WCAG 4.1.3).
+    await expect(other.locator("#live-region")).toHaveText("Count: 2");
+  });
+
+  test("alternating taps in two tabs add up without losing any", async ({
+    page,
+    context,
+  }) => {
+    const other = await context.newPage();
+    await page.goto("/");
+    await other.goto("/");
+    const tapHere = page.getByRole("button", { name: "Add one" });
+    const tapThere = other.getByRole("button", { name: "Add one" });
+
+    for (let i = 0; i < 5; i += 1) {
+      await tapHere.click();
+      await tapThere.click();
+    }
+
+    await expect(page.locator("#count")).toHaveText("10");
+    await expect(other.locator("#count")).toHaveText("10");
+    expect(await storedCount(page)).toBe("10");
+  });
+
+  test("a storage event for an unrelated key leaves the other tab's count unchanged", async ({
+    page,
+    context,
+  }) => {
+    const other = await context.newPage();
+    await page.goto("/");
+    await other.goto("/");
+
+    await page.evaluate(() => localStorage.setItem("unrelated.key", "99"));
+    await page.waitForTimeout(50);
+
+    await expect(other.locator("#count")).toHaveText("0");
   });
 });
 
@@ -132,6 +167,32 @@ test.describe("with an invalid stored count", () => {
       await expect(page.locator("#count")).toHaveText("0");
     });
   }
+});
+
+test("when a write fails mid-session, the count still advances and does not roll back", async ({
+  page,
+}) => {
+  const errors = [];
+  page.on("pageerror", (err) => errors.push(err.message));
+  await page.addInitScript(() => {
+    const native = window.localStorage.setItem.bind(window.localStorage);
+    window.localStorage.setItem = function (key, value) {
+      if (key === "tally.count") {
+        throw new DOMException("Quota exceeded", "QuotaExceededError");
+      }
+      return native(key, value);
+    };
+  });
+
+  await page.goto("/");
+  const tap = page.getByRole("button", { name: "Add one" });
+  await tap.click();
+  await expect(page.locator("#count")).toHaveText("1");
+  await tap.click();
+  await expect(page.locator("#count")).toHaveText("2");
+  await tap.click();
+  await expect(page.locator("#count")).toHaveText("3");
+  expect(errors).toEqual([]);
 });
 
 test("when every localStorage access throws, the counter still works in memory", async ({

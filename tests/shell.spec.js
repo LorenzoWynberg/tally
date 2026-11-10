@@ -128,6 +128,14 @@ test("tap button presses with a short ease-out scale, and holds still under redu
   );
   expect(duration).toBeGreaterThanOrEqual(0.12);
   expect(duration).toBeLessThanOrEqual(0.24);
+  const timingFunction = await tap.evaluate(
+    (el) => getComputedStyle(el).transitionTimingFunction,
+  );
+  // An ease-out curve decelerates into its end value: no overshoot, so the
+  // easing's control points never exceed 1 (ruling out a linear/ease-in/overshoot swap).
+  const bezierPoints = timingFunction.match(/-?[\d.]+/g).map(Number);
+  expect(bezierPoints.every((p) => p <= 1)).toBe(true);
+  expect(timingFunction).not.toBe("linear");
 
   await page.emulateMedia({ reducedMotion: "reduce" });
   await expect(tap).toHaveCSS("transition-property", "none");
