@@ -1,5 +1,5 @@
 #!/bin/bash
-# trinity: package=web
+# trinity: package=tally
 # Serves the repo root as static files, exactly as GitHub Pages serves it (no build step).
 set -e
 cd "$(dirname "$0")/.."
