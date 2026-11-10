@@ -210,7 +210,10 @@ body {
 
 .reset-button {
   padding: var(--spacing-2) var(--spacing-4);
-  border: 1px solid var(--border);
+  /* --border is a hairline divider colour (~1.3:1 against --background in
+     both facets) — too faint to mark a control's boundary at 3:1 (WCAG
+     1.4.11). --muted clears 3:1 in both facets and still reads as secondary. */
+  border: 1px solid var(--muted);
   border-radius: var(--radius-md);
   background: transparent;
   color: var(--muted);
@@ -223,7 +226,7 @@ body {
 
 .reset-button:hover {
   color: var(--foreground);
-  border-color: var(--muted);
+  border-color: var(--foreground);
 }
 
 .reset-button:focus-visible {

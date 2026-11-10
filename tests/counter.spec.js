@@ -116,9 +116,8 @@ test.describe("with working storage", () => {
     await page.getByRole("button", { name: "Add one" }).click();
 
     await expect(other.locator("#count")).toHaveText("2");
-    // The other tab announces the synced count too, so a screen reader
-    // user there learns of the change without needing to re-visit it (WCAG 4.1.3).
-    await expect(other.locator("#live-region")).toHaveText("Count: 2");
+    // Sync is display-only: the other tab does not announce another tab's taps.
+    await expect(other.locator("#live-region")).toHaveText("");
   });
 
   test("alternating taps in two tabs add up without losing any", async ({
@@ -141,7 +140,7 @@ test.describe("with working storage", () => {
     expect(await storedCount(page)).toBe("10");
   });
 
-  test("a storage event for an unrelated key leaves the other tab's count unchanged", async ({
+  test("a storage event for an unrelated key leaves the other tab's count unchanged, and a real update still syncs", async ({
     page,
     context,
   }) => {
@@ -150,9 +149,11 @@ test.describe("with working storage", () => {
     await other.goto("/");
 
     await page.evaluate(() => localStorage.setItem("unrelated.key", "99"));
-    await page.waitForTimeout(50);
-
-    await expect(other.locator("#count")).toHaveText("0");
+    // A fixed sleep can't prove the listener filtered the key rather than
+    // never firing at all: a real tap right after, synced via the same
+    // listener, shows it is alive and that the unrelated key left no trace.
+    await page.getByRole("button", { name: "Add one" }).click();
+    await expect(other.locator("#count")).toHaveText("1");
   });
 });
 

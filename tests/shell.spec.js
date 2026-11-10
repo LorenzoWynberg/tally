@@ -66,16 +66,19 @@ for (const colorScheme of COLOR_SCHEMES) {
       const bg = getComputedStyle(document.body).backgroundColor;
       const count = getComputedStyle(document.querySelector(".count")).color;
       const tap = getComputedStyle(document.getElementById("tap-button"));
+      const reset = getComputedStyle(document.getElementById("reset-button"));
       return {
         count: contrast(count, bg),
         buttonBoundary: contrast(tap.borderTopColor, bg),
         buttonLabel: contrast(tap.color, tap.backgroundColor),
+        resetBoundary: contrast(reset.borderTopColor, bg),
       };
     });
 
     expect(ratios.count).toBeGreaterThanOrEqual(3);
     expect(ratios.buttonBoundary).toBeGreaterThanOrEqual(3);
     expect(ratios.buttonLabel).toBeGreaterThanOrEqual(4.5);
+    expect(ratios.resetBoundary).toBeGreaterThanOrEqual(3);
   });
 }
 

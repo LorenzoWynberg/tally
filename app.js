@@ -60,12 +60,6 @@
   }
 
   function increment() {
-    // Re-sync with storage first: another tab may have written since our
-    // last render, and trusting our own stale copy would lose its tap. Take
-    // the higher of the two, so a storage read that is merely stale (a write
-    // that failed mid-session, leaving an old value behind) never pulls the
-    // count backwards.
-    if (hasStorage) count = Math.max(count, readStored());
     count += 1;
     render();
     writeStored(count);
@@ -83,14 +77,12 @@
   }
 
   // Another tab changed the count (or cleared storage, where key is null):
-  // mirror it on screen and announce it, without writing back.
+  // mirror it on screen, without writing back or announcing (avoids chatter
+  // from another tab's taps).
   window.addEventListener("storage", function (event) {
     if (event.key !== STORAGE_KEY && event.key !== null) return;
-    const next = parseCount(event.newValue);
-    if (next === count) return;
-    count = next;
+    count = parseCount(event.newValue);
     render();
-    announce("Count: " + count);
   });
 
   tapButton.addEventListener("click", increment);
