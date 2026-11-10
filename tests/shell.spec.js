@@ -23,6 +23,21 @@ test("loads, shows 0, both buttons, no console errors", async ({ page }) => {
   expect(errors).toEqual([]);
 });
 
+test("makes no request to any origin but its own, on load and after a tap", async ({
+  page,
+}) => {
+  const urls = [];
+  page.on("request", (request) => urls.push(request.url()));
+
+  await page.goto("/");
+  await page.getByRole("button", { name: "Add one" }).click();
+
+  const pageOrigin = new URL(page.url()).origin;
+  for (const url of urls) {
+    expect(new URL(url).origin).toBe(pageOrigin);
+  }
+});
+
 for (const colorScheme of COLOR_SCHEMES) {
   test(`has no WCAG 2.1 AA violations in the ${colorScheme} facet`, async ({
     page,

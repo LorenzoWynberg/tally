@@ -4,6 +4,7 @@
   "private": true,
   "description": "A tiny tap counter web page hosted on GitHub Pages",
   "scripts": {
+    "dev": "scripts/start-dev.sh",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
     "lint": "eslint .",

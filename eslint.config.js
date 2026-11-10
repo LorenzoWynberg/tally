@@ -36,6 +36,7 @@ module.exports = [
         localStorage: "readonly",
         getComputedStyle: "readonly",
         DOMException: "readonly",
+        URL: "readonly",
       },
     },
     rules: sharedRules,

@@ -149,16 +149,36 @@ test.describe("with working storage", () => {
     await other.goto("/");
 
     await page.evaluate(() => localStorage.setItem("unrelated.key", "99"));
+    await expect(other.locator("#count")).toHaveText("0");
+
     // A fixed sleep can't prove the listener filtered the key rather than
     // never firing at all: a real tap right after, synced via the same
     // listener, shows it is alive and that the unrelated key left no trace.
     await page.getByRole("button", { name: "Add one" }).click();
     await expect(other.locator("#count")).toHaveText("1");
   });
+
+  test("another tab clearing storage resets this tab's count to 0 without a reload", async ({
+    page,
+    context,
+  }) => {
+    const other = await context.newPage();
+    await page.goto("/");
+    await other.goto("/");
+    const tap = page.getByRole("button", { name: "Add one" });
+
+    for (let i = 0; i < 3; i += 1) await tap.click();
+    await expect(page.locator("#count")).toHaveText("3");
+    await expect(other.locator("#count")).toHaveText("3");
+
+    await other.evaluate(() => localStorage.clear());
+
+    await expect(page.locator("#count")).toHaveText("0");
+  });
 });
 
 test.describe("with an invalid stored count", () => {
-  for (const stored of ["abc", "-2", "1.5"]) {
+  for (const stored of ["abc", "-2", "1.5", "9".repeat(25)]) {
     test(`a stored "${stored}" loads as 0`, async ({ page }) => {
       await page.addInitScript(
         ([key, value]) => localStorage.setItem(key, value),
@@ -175,15 +195,15 @@ test("when a write fails mid-session, the count still advances and does not roll
 }) => {
   const errors = [];
   page.on("pageerror", (err) => errors.push(err.message));
-  await page.addInitScript(() => {
+  await page.addInitScript((key) => {
     const native = window.localStorage.setItem.bind(window.localStorage);
-    window.localStorage.setItem = function (key, value) {
-      if (key === "tally.count") {
+    window.localStorage.setItem = function (k, value) {
+      if (k === key) {
         throw new DOMException("Quota exceeded", "QuotaExceededError");
       }
-      return native(key, value);
+      return native(k, value);
     };
-  });
+  }, STORAGE_KEY);
 
   await page.goto("/");
   const tap = page.getByRole("button", { name: "Add one" });
