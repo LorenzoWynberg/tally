@@ -14,7 +14,7 @@ Even when `hasStorage` is `true` at startup, a write can still fail later (e.g. 
 
 ## Increment and reset
 
-`increment()` adds one to `count`, renders, persists via `writeStored()`, announces `"Taps: <n>"` through the live region, and returns focus to the tap button. It does not re-sync from storage before adding — a `Math.max` reconciliation was tried and removed, since it could resurrect a stale higher count over an authoritative lower one from a concurrent reset in another tab.
+`addToCount(step, button)` is the single increment path for both buttons: `#tap-button` calls it with `step=1`, `#add-five-button` with `step=5`. It adds `step` to `count`, renders, persists via `writeStored()`, announces `"Taps: <n>"` through the live region, and returns focus to `button` — there is no second copy of the write/fallback/announce path for `+5`. It does not re-sync from storage before adding — a `Math.max` reconciliation was tried and removed, since it could resurrect a stale higher count over an authoritative lower one from a concurrent reset in another tab.
 
 `reset()` gates on `window.confirm("Reset the count to zero?")`. Accepting sets `count` to `0`, renders, persists, announces `"Count reset to 0"`, and returns focus to the reset button. Dismissing the confirm leaves `count` and storage untouched.
 
