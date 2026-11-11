@@ -12,4 +12,6 @@ The `#today` date element sets its own `lang` attribute to the resolved locale f
 
 Every interactive control meets the WCAG 2.5.5/2.5.8 44×44px minimum touch target. `styles.css` holds this as the `--control-min-touch` token in `:root`; `.reset-button` reads it via `min-height` and centers its content with `display: inline-flex` so the padding-driven box still clears 44px. `#tap-button` already exceeds it through its own sizing.
 
+`.reset-button` carries `aria-label="Reset count to zero"` while its visible text stays "Reset": WCAG 2.5.3 Label in Name requires the accessible name to contain the visible text, which a bare "Reset" already satisfied, but the fuller label is kept as the accessible name so screen reader users hear the button's effect, not just its visible word.
+
 `#subtract-one-button` is disabled at `count === 0` with `aria-disabled="true"`, never the native `disabled` attribute. A natively disabled button is removed from the tab order, so the keyboard press that brings the count from 1 to 0 would drop focus to `<body>` — `aria-disabled` keeps the element focusable and announced as disabled (it is still exposed to assistive tech as a button, with its disabled state read out), while `render()` keeps the attribute in sync with the count on every path that can change it.
