@@ -1,5 +1,17 @@
 # Changelog
 
+## 1.3.0 - 2026-11-10
+
+## New
+
+### Add five in one tap
+
+A new **+5** button sits beside the +1 button, so you can add five to your count with one tap instead of five. +1 is still the main control. +5 is styled as a quieter secondary button, so the page still works the way you're used to.
+
+## What stays the same
+
+A +5 tap works exactly like five +1 taps would. Your count is saved and synced the same way, and screen readers announce the new total the same way. Nothing changes in your existing tallies and there's nothing new to set up.
+
 ## 1.2.0 - 2026-11-10
 
 ## Changed
