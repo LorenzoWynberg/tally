@@ -96,7 +96,7 @@ test.describe("with working storage", () => {
     await expect(page.locator("#count")).not.toHaveAttribute("aria-live");
 
     await page.getByRole("button", { name: "Add one" }).click();
-    await expect(live).toHaveText("Count: 1");
+    await expect(live).toHaveText("Taps: 1");
 
     page.once("dialog", (dialog) => dialog.accept());
     await page.getByRole("button", { name: "Reset" }).click();
@@ -175,6 +175,20 @@ test.describe("with working storage", () => {
 
     await expect(page.locator("#count")).toHaveText("0");
   });
+});
+
+test("the date under the title shows today's date in the visitor's locale and timezone", async ({
+  page,
+}) => {
+  await page.goto("/");
+  const expected = await page.evaluate(() =>
+    new Intl.DateTimeFormat(undefined, {
+      day: "numeric",
+      month: "long",
+      year: "numeric",
+    }).format(new Date()),
+  );
+  await expect(page.locator("#today")).toHaveText(expected);
 });
 
 test.describe("with an invalid stored count", () => {
