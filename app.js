@@ -5,6 +5,7 @@
 
   const countEl = document.getElementById("count");
   const dateEl = document.getElementById("today");
+  const subtractOneButton = document.getElementById("subtract-one-button");
   const tapButton = document.getElementById("tap-button");
   const addFiveButton = document.getElementById("add-five-button");
   const resetButton = document.getElementById("reset-button");
@@ -55,6 +56,10 @@
 
   function render() {
     countEl.textContent = String(count);
+    subtractOneButton.setAttribute(
+      "aria-disabled",
+      count <= 0 ? "true" : "false",
+    );
   }
 
   function renderDate() {
@@ -72,7 +77,9 @@
   }
 
   function addToCount(step, button) {
-    count += step;
+    const next = Math.max(0, count + step);
+    if (next === count) return;
+    count = next;
     render();
     writeStored(count);
     announce("Taps: " + count);
@@ -97,6 +104,9 @@
     render();
   });
 
+  subtractOneButton.addEventListener("click", function () {
+    addToCount(-1, subtractOneButton);
+  });
   tapButton.addEventListener("click", function () {
     addToCount(1, tapButton);
   });

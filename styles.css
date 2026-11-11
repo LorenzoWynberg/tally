@@ -199,11 +199,6 @@ body {
   gap: var(--spacing-2);
 }
 
-.action-spacer {
-  flex: 0 0 var(--control-min-touch);
-  width: var(--control-min-touch);
-}
-
 .tap-button {
   flex: 1 1 auto;
   min-width: 0;
@@ -265,6 +260,44 @@ body {
   outline-offset: 4px;
 }
 
+.subtract-one-button {
+  flex: 0 0 var(--control-min-touch);
+  width: var(--control-min-touch);
+  min-height: var(--control-min-touch);
+  padding: var(--spacing-2);
+  border: 2px solid var(--secondary);
+  border-radius: var(--radius-2xl);
+  background: var(--secondary);
+  color: var(--on-secondary);
+  box-shadow: var(--elevation-sm);
+  font-family: inherit;
+  font-size: var(--text-lg);
+  line-height: var(--leading-tight);
+  font-weight: 700;
+  cursor: pointer;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+  user-select: none;
+  transition: transform var(--duration-fast) var(--ease-entrance);
+}
+
+.subtract-one-button:active {
+  transform: scale(0.95);
+}
+
+.subtract-one-button:focus-visible {
+  outline: 3px solid var(--ring);
+  outline-offset: 4px;
+}
+
+.subtract-one-button[aria-disabled="true"] {
+  cursor: default;
+  box-shadow: none;
+  border-color: var(--border);
+  background: var(--surface);
+  color: var(--muted);
+}
+
 .reset-button {
   min-height: var(--control-min-touch);
   padding: var(--spacing-2) var(--spacing-4);
@@ -316,12 +349,14 @@ body {
 
 @media (prefers-reduced-motion: reduce) {
   .tap-button,
-  .add-five-button {
+  .add-five-button,
+  .subtract-one-button {
     transition: none;
   }
 
   .tap-button:active,
-  .add-five-button:active {
+  .add-five-button:active,
+  .subtract-one-button:active {
     transform: none;
   }
 }
