@@ -23,6 +23,45 @@ test("one click on -1 subtracts exactly one", async ({ page }) => {
   await expect(count).toHaveText("4");
 });
 
+test("the live region announces the new total after -1", async ({ page }) => {
+  await page.goto("/");
+  const live = page.locator('[aria-live="polite"]');
+
+  await page.getByRole("button", { name: "Add five" }).click();
+  await expect(live).toHaveText("Taps: 5");
+
+  await page.getByRole("button", { name: "Subtract one" }).click();
+  await expect(live).toHaveText("Taps: 4");
+});
+
+test("-1 is keyboard operable with a visible focus ring, touch-action, and the same press effect as +1/+5", async ({
+  page,
+}) => {
+  await page.goto("/");
+  await page.getByRole("button", { name: "Add five" }).click();
+  const subtractOne = page.getByRole("button", { name: "Subtract one" });
+  const count = page.locator("#count");
+
+  await expect(subtractOne).toHaveCSS("touch-action", "manipulation");
+  await expect(subtractOne).toHaveCSS("transition-property", "transform");
+  const duration = await subtractOne.evaluate((el) =>
+    parseFloat(getComputedStyle(el).transitionDuration),
+  );
+  expect(duration).toBeGreaterThanOrEqual(0.12);
+  expect(duration).toBeLessThanOrEqual(0.24);
+
+  await subtractOne.focus();
+  await page.keyboard.press("Enter");
+  await expect(count).toHaveText("4");
+  await page.keyboard.press("Space");
+  await expect(count).toHaveText("3");
+  await expect(subtractOne).toBeFocused();
+  await expect(subtractOne).toHaveCSS("outline-style", "solid");
+
+  await page.emulateMedia({ reducedMotion: "reduce" });
+  await expect(subtractOne).toHaveCSS("transition-property", "none");
+});
+
 test("the count from -1 survives a reload", async ({ page }) => {
   await page.goto("/");
   await page.getByRole("button", { name: "Add five" }).click();
