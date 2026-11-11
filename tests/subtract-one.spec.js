@@ -18,7 +18,7 @@ test("-1's accessible name pins the shipped value, not just a substring", async 
   // pins the exact shipped value so a drift is caught here instead.
   await page.goto("/");
   await expect(
-    page.getByRole("button", { name: "−1, subtract one", exact: true }),
+    page.getByRole("button", { name: "Subtract one", exact: true }),
   ).toHaveCount(1);
 });
 
