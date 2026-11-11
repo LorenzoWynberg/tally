@@ -19,7 +19,10 @@ test("loads, shows 0, both buttons, no console errors", async ({ page }) => {
 
   await expect(page.locator("#count")).toHaveText("0");
   await expect(page.getByRole("button", { name: "Add one" })).toBeVisible();
-  await expect(page.getByRole("button", { name: "Reset" })).toBeVisible();
+  const resetButton = page.getByRole("button", { name: "Reset" });
+  await expect(resetButton).toBeVisible();
+  await expect(resetButton).toHaveAccessibleName("Reset count to zero");
+  await expect(resetButton).toHaveText("Reset");
   expect(errors).toEqual([]);
 });
 
