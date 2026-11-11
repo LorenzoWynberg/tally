@@ -191,8 +191,22 @@ body {
   line-height: var(--leading-normal);
 }
 
-.tap-button {
+.actions {
   width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--spacing-2);
+}
+
+.action-spacer {
+  flex: 0 0 var(--control-min-touch);
+  width: var(--control-min-touch);
+}
+
+.tap-button {
+  flex: 1 1 auto;
+  min-width: 0;
   max-width: calc(var(--spacing) * 72);
   padding: var(--spacing-8) var(--spacing-12);
   border: 2px solid var(--primary);
@@ -217,6 +231,36 @@ body {
 }
 
 .tap-button:focus-visible {
+  outline: 3px solid var(--ring);
+  outline-offset: 4px;
+}
+
+.add-five-button {
+  flex: 0 0 var(--control-min-touch);
+  width: var(--control-min-touch);
+  min-height: var(--control-min-touch);
+  padding: var(--spacing-2);
+  border: 2px solid var(--secondary);
+  border-radius: var(--radius-2xl);
+  background: var(--secondary);
+  color: var(--on-secondary);
+  box-shadow: var(--elevation-sm);
+  font-family: inherit;
+  font-size: var(--text-lg);
+  line-height: var(--leading-tight);
+  font-weight: 700;
+  cursor: pointer;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+  user-select: none;
+  transition: transform var(--duration-fast) var(--ease-entrance);
+}
+
+.add-five-button:active {
+  transform: scale(0.95);
+}
+
+.add-five-button:focus-visible {
   outline: 3px solid var(--ring);
   outline-offset: 4px;
 }
@@ -271,11 +315,13 @@ body {
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .tap-button {
+  .tap-button,
+  .add-five-button {
     transition: none;
   }
 
-  .tap-button:active {
+  .tap-button:active,
+  .add-five-button:active {
     transform: none;
   }
 }
