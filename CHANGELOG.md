@@ -1,5 +1,17 @@
 # Changelog
 
+## 1.4.0 - 2026-11-11
+
+## New
+
+### Undo an over-tap with −1
+
+If you tap one too many times, you can now take it back. The new **−1** button lowers the count by one, so you don't have to reset to 0 and start over.
+
+The count can't go below zero: at 0, −1 does nothing. You'll never see a negative tally.
+
+−1 sits opposite +5, as a small secondary button on the other side of +1. **+1** and the count stay front and center, so the page looks as clean and simple as before.
+
 ## 1.3.0 - 2026-11-10
 
 ## New
