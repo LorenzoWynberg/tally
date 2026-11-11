@@ -10,6 +10,18 @@ function storedCount(page) {
   return page.evaluate((key) => localStorage.getItem(key), STORAGE_KEY);
 }
 
+test("-1's accessible name pins the shipped value, not just a substring", async ({
+  page,
+}) => {
+  // getByRole's `name` option matches substrings by default, so every other
+  // test in this file still finds the button if its label drifts. This test
+  // pins the exact shipped value so a drift is caught here instead.
+  await page.goto("/");
+  await expect(
+    page.getByRole("button", { name: "−1, subtract one", exact: true }),
+  ).toHaveCount(1);
+});
+
 test("one click on -1 subtracts exactly one", async ({ page }) => {
   await page.goto("/");
   const subtractOne = page.getByRole("button", { name: "Subtract one" });
@@ -207,23 +219,19 @@ test("when every localStorage access throws, -1 still clamps at 0 in memory", as
 });
 
 for (const colorScheme of ["light", "dark"]) {
-  test(`-1 has no WCAG 2.1 AA violations in the ${colorScheme} facet, disabled and enabled`, async ({
+  test(`-1 has no WCAG 2.1 AA violations in the ${colorScheme} facet while disabled at count 0`, async ({
     page,
   }) => {
+    // The enabled state (count > 0) is already swept by shell.spec.js's own
+    // AA test, which taps "Add one" before scanning the whole page. Only the
+    // disabled-at-0 state is unique to this file.
     await page.emulateMedia({ colorScheme });
     await page.goto("/");
 
-    const disabledResults = await new AxeBuilder({ page })
+    const results = await new AxeBuilder({ page })
       .withTags(WCAG_TAGS)
       .analyze();
-    expect(disabledResults.violations).toEqual([]);
-
-    await page.getByRole("button", { name: "Add one" }).click();
-
-    const enabledResults = await new AxeBuilder({ page })
-      .withTags(WCAG_TAGS)
-      .analyze();
-    expect(enabledResults.violations).toEqual([]);
+    expect(results.violations).toEqual([]);
   });
 }
 
