@@ -23,6 +23,19 @@ test("loads, shows 0, both buttons, no console errors", async ({ page }) => {
   expect(errors).toEqual([]);
 });
 
+test("has exactly one description meta, with the exact content", async ({
+  page,
+}) => {
+  await page.goto("/");
+
+  const descriptionMeta = page.locator('head meta[name="description"]');
+  await expect(descriptionMeta).toHaveCount(1);
+  await expect(descriptionMeta).toHaveAttribute(
+    "content",
+    "Tally: a calm, minimal tap counter. Tap +1 to count; your count is saved on this device.",
+  );
+});
+
 test("makes no request to any origin but its own, on load and after a tap", async ({
   page,
 }) => {
