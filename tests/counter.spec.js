@@ -214,6 +214,7 @@ test("the datetime attribute matches the visible local date across a UTC day bou
   );
 
   const today = page.locator("#today");
+  await expect(today).toHaveJSProperty("tagName", "TIME");
   await expect(today).toHaveText(expectedText);
   await expect(today).toHaveAttribute("datetime", "2026-01-15");
 
