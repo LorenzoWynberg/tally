@@ -191,6 +191,35 @@ test("the date under the title shows today's date in the visitor's locale and ti
   await expect(page.locator("#today")).toHaveText(expected);
 });
 
+test("the datetime attribute matches the visible local date across a UTC day boundary", async ({
+  browser,
+}) => {
+  const localInstant = new Date("2026-01-16T07:30:00.000Z");
+
+  const context = await browser.newContext({
+    timezoneId: "America/Los_Angeles",
+  });
+  const page = await context.newPage();
+  await page.clock.setFixedTime(localInstant);
+  await page.goto("/");
+
+  const expectedText = await page.evaluate(
+    (iso) =>
+      new Intl.DateTimeFormat(undefined, {
+        day: "numeric",
+        month: "long",
+        year: "numeric",
+      }).format(new Date(iso)),
+    localInstant.toISOString(),
+  );
+
+  const today = page.locator("#today");
+  await expect(today).toHaveText(expectedText);
+  await expect(today).toHaveAttribute("datetime", "2026-01-15");
+
+  await context.close();
+});
+
 test.describe("with an invalid stored count", () => {
   for (const stored of ["abc", "-2", "1.5", "9".repeat(25)]) {
     test(`a stored "${stored}" loads as 0`, async ({ page }) => {
