@@ -4,6 +4,7 @@
   const STORAGE_KEY = "tally.count";
 
   const countEl = document.getElementById("count");
+  const dateEl = document.getElementById("today");
   const tapButton = document.getElementById("tap-button");
   const resetButton = document.getElementById("reset-button");
   const liveRegion = document.getElementById("live-region");
@@ -55,6 +56,14 @@
     countEl.textContent = String(count);
   }
 
+  function renderDate() {
+    dateEl.textContent = new Intl.DateTimeFormat(undefined, {
+      day: "numeric",
+      month: "long",
+      year: "numeric",
+    }).format(new Date());
+  }
+
   function announce(message) {
     liveRegion.textContent = message;
   }
@@ -63,7 +72,7 @@
     count += 1;
     render();
     writeStored(count);
-    announce("Count: " + count);
+    announce("Taps: " + count);
     tapButton.focus();
   }
 
@@ -89,4 +98,5 @@
   resetButton.addEventListener("click", reset);
 
   render();
+  renderDate();
 })();
