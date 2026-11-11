@@ -1,5 +1,15 @@
 # Changelog
 
+## 1.2.0 - 2026-11-10
+
+## Changed
+
+The count label now reads **"Taps:"**, and screen readers announce the same word. What you see on screen and what you hear from assistive technology now match.
+
+## New
+
+Today's date now appears under the page title, so you can see at a glance which day you're counting. The date comes from your device's own clock and time zone, so it follows your local day, not a server's.
+
 ## 1.1.0 - 2026-11-10
 
 ## New
