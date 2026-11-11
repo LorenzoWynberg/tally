@@ -6,6 +6,7 @@
   const countEl = document.getElementById("count");
   const dateEl = document.getElementById("today");
   const tapButton = document.getElementById("tap-button");
+  const addFiveButton = document.getElementById("add-five-button");
   const resetButton = document.getElementById("reset-button");
   const liveRegion = document.getElementById("live-region");
 
@@ -70,12 +71,12 @@
     liveRegion.textContent = message;
   }
 
-  function increment() {
-    count += 1;
+  function addToCount(step, button) {
+    count += step;
     render();
     writeStored(count);
     announce("Taps: " + count);
-    tapButton.focus();
+    button.focus();
   }
 
   function reset() {
@@ -96,7 +97,12 @@
     render();
   });
 
-  tapButton.addEventListener("click", increment);
+  tapButton.addEventListener("click", function () {
+    addToCount(1, tapButton);
+  });
+  addFiveButton.addEventListener("click", function () {
+    addToCount(5, addFiveButton);
+  });
   resetButton.addEventListener("click", reset);
 
   render();
