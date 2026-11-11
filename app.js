@@ -57,11 +57,13 @@
   }
 
   function renderDate() {
-    dateEl.textContent = new Intl.DateTimeFormat(undefined, {
+    const formatter = new Intl.DateTimeFormat(undefined, {
       day: "numeric",
       month: "long",
       year: "numeric",
-    }).format(new Date());
+    });
+    dateEl.lang = formatter.resolvedOptions().locale;
+    dateEl.textContent = formatter.format(new Date());
   }
 
   function announce(message) {
