@@ -13,6 +13,7 @@
   const addFiveButton = document.getElementById("add-five-button");
   const addTenButton = document.getElementById("add-ten-button");
   const resetButton = document.getElementById("reset-button");
+  const clearTotalButton = document.getElementById("clear-total-button");
   const liveRegion = document.getElementById("live-region");
   const historySection = document.getElementById("history");
   const historyList = document.getElementById("history-list");
@@ -142,6 +143,15 @@
     resetButton.focus();
   }
 
+  function clearTotal() {
+    if (!window.confirm("Clear the total to zero?")) return;
+    total = 0;
+    writeStored(TOTAL_KEY, total);
+    renderTotal();
+    announce("Total cleared");
+    clearTotalButton.focus();
+  }
+
   // Another tab changed the count (or cleared storage, where key is null):
   // mirror it on screen, without writing back or announcing (avoids chatter
   // from another tab's taps).
@@ -169,6 +179,7 @@
     addToCount(10, addTenButton);
   });
   resetButton.addEventListener("click", reset);
+  clearTotalButton.addEventListener("click", clearTotal);
 
   render();
   renderTotal();
