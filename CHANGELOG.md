@@ -28,19 +28,19 @@ The colours are new in both modes. The old indigo is replaced by teal on a deep 
 
 If you restyle Tally by overriding its CSS custom properties, your overrides will stop applying. Every property now follows one naming pattern, `--tally-<group>-<name>`. The old unprefixed names are not kept as aliases. No property was removed, so each old name has exactly one replacement:
 
-| Old name | New name |
-| --- | --- |
+| Old name                                                    | New name                                                                     |
+| ----------------------------------------------------------- | ---------------------------------------------------------------------------- |
 | `--background`, `--primary`, `--ring`, … (all colour roles) | `--tally-color-background`, `--tally-color-primary`, `--tally-color-ring`, … |
-| `--elevation-<step>` | `--tally-shadow-<step>` |
-| `--font-<name>` | `--tally-font-<name>` |
-| `--text-<step>` | `--tally-font-size-<step>` |
-| `--leading-<step>` | `--tally-line-height-<step>` |
-| `--spacing` / `--spacing-<n>` | `--tally-space-unit` / `--tally-space-<n>` |
-| `--radius` / `--radius-<step>` | `--tally-radius-base` / `--tally-radius-<step>` |
-| `--duration-<speed>` | `--tally-duration-<speed>` |
-| `--ease-<kind>` | `--tally-ease-<kind>` |
-| `--count-fluid` | `--tally-count-size-fluid` |
-| `--control-min-touch` | `--tally-touch-target-min` |
+| `--elevation-<step>`                                        | `--tally-shadow-<step>`                                                      |
+| `--font-<name>`                                             | `--tally-font-<name>`                                                        |
+| `--text-<step>`                                             | `--tally-font-size-<step>`                                                   |
+| `--leading-<step>`                                          | `--tally-line-height-<step>`                                                 |
+| `--spacing` / `--spacing-<n>`                               | `--tally-space-unit` / `--tally-space-<n>`                                   |
+| `--radius` / `--radius-<step>`                              | `--tally-radius-base` / `--tally-radius-<step>`                              |
+| `--duration-<speed>`                                        | `--tally-duration-<speed>`                                                   |
+| `--ease-<kind>`                                             | `--tally-ease-<kind>`                                                        |
+| `--count-fluid`                                             | `--tally-count-size-fluid`                                                   |
+| `--control-min-touch`                                       | `--tally-touch-target-min`                                                   |
 
 The comment block at the top of `styles.css` has the full list, one line per property. The new **Theming** section in the README points to it. To update your overrides, rename each property using the table. Because the default is now dark, set your dark values at the top level and put light values inside a `prefers-color-scheme: light` query.
 
