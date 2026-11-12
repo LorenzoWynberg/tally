@@ -1,5 +1,33 @@
 # Changelog
 
+## 2.0.0 - 2026-11-12
+
+### Changed: Tally now opens in dark mode
+
+The counter now uses dark mode by default. Before, it showed light unless your system asked for dark. If your device has no colour-scheme preference, Tally now opens dark. If your system is set to light mode, you still get a light version.
+
+The colours are new in both modes. The old indigo is replaced by teal on a deep slate background, with an amber accent. Light mode uses the same colours on a pale teal background. The count, button labels and reset text meet a 4.5:1 contrast ratio in both modes, and the focus ring meets 3:1. The tap button is still the largest control and reset still looks secondary, so the layout works as before. Reduced-motion and wide-screen behaviour are unchanged.
+
+### Breaking: theming properties have new names
+
+If you restyle Tally by overriding its CSS custom properties, your overrides will stop applying. Every property now follows one naming pattern, `--tally-<group>-<name>`. The old unprefixed names are not kept as aliases. No property was removed, so each old name has exactly one replacement:
+
+| Old name | New name |
+| --- | --- |
+| `--background`, `--primary`, `--ring`, … (all colour roles) | `--tally-color-background`, `--tally-color-primary`, `--tally-color-ring`, … |
+| `--elevation-<step>` | `--tally-shadow-<step>` |
+| `--font-<name>` | `--tally-font-<name>` |
+| `--text-<step>` | `--tally-font-size-<step>` |
+| `--leading-<step>` | `--tally-line-height-<step>` |
+| `--spacing` / `--spacing-<n>` | `--tally-space-unit` / `--tally-space-<n>` |
+| `--radius` / `--radius-<step>` | `--tally-radius-base` / `--tally-radius-<step>` |
+| `--duration-<speed>` | `--tally-duration-<speed>` |
+| `--ease-<kind>` | `--tally-ease-<kind>` |
+| `--count-fluid` | `--tally-count-size-fluid` |
+| `--control-min-touch` | `--tally-touch-target-min` |
+
+The comment block at the top of `styles.css` has the full list, one line per property. The new **Theming** section in the README points to it. To update your overrides, rename each property using the table. Because the default is now dark, set your dark values at the top level and put light values inside a `prefers-color-scheme: light` query.
+
 ## 1.6.0 - 2026-11-12
 
 ## New

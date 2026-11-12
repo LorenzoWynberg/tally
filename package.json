@@ -1,6 +1,6 @@
 {
   "name": "tally",
-  "version": "1.6.0",
+  "version": "2.0.0",
   "private": true,
   "description": "A tiny tap counter web page hosted on GitHub Pages",
   "scripts": {
