@@ -93,9 +93,16 @@
     liveRegion.textContent = message;
   }
 
+  function pulse() {
+    if (typeof window.navigator.vibrate === "function") {
+      window.navigator.vibrate(15);
+    }
+  }
+
   function addToCount(step, button) {
     const next = Math.max(0, count + step);
     if (next === count) return;
+    pulse();
     count = next;
     recentCounts.unshift(count);
     recentCounts.length = Math.min(recentCounts.length, HISTORY_LIMIT);
