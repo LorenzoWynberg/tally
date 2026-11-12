@@ -32,6 +32,6 @@ The count label now reads **"Taps:"**, and screen readers announce the same word
 
 ### Clearer search results and link previews
 
-When Tally appears in search results or someone shares a link to it, the preview now shows a short, accurate description: *"Tally: a calm, minimal tap counter. Tap +1 to count; your count is saved on this device."* That tells people what Tally does before they open it: tap to count, and the count stays on their device. The page carries exactly one description, so search engines and link-preview tools all pick up the same text.
+When Tally appears in search results or someone shares a link to it, the preview now shows a short, accurate description: _"Tally: a calm, minimal tap counter. Tap +1 to count; your count is saved on this device."_ That tells people what Tally does before they open it: tap to count, and the count stays on their device. The page carries exactly one description, so search engines and link-preview tools all pick up the same text.
 
 Nothing changes once you open Tally. The counter, the buttons and the look are all the same, and any count you've already saved on your device is kept.

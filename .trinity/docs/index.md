@@ -11,6 +11,7 @@ Tally is a tap counter web page: tap **+1** to add one, with the count persisted
 
 - [App structure](tech-guide/app/structure.md) — the DOM shell and how `app.js` wires it up
 - [Counter state](tech-guide/app/counter-state.md) — persistence, validation, cross-tab sync and storage-failure handling
+- [Count history](tech-guide/app/count-history.md) — the in-memory list of the last five counts
 - [Testing](tech-guide/app/testing.md) — the Playwright suite, targeting a live deployment via `BASE_URL`, and the no-third-party-request guard
 
 ## Commands
