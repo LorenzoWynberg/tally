@@ -1,5 +1,21 @@
 # Changelog
 
+## 2.1.0 - 2026-11-12
+
+### New
+
+#### Total taps: a lifetime count beside your current one
+
+Tally now shows a **Total taps** line next to the counter. It adds up everything the + buttons have ever added, so you can see how far you've come overall as well as where the current count stands.
+
+The total is saved, so it's still there after you reload the page. If you have Tally open in more than one tab, the total updates in all of them as you tap.
+
+### Changed
+
+#### Reset only clears the current count
+
+**Reset** works the same as before on the counter: it sets the current count back to zero. It no longer wipes out your history, because Total taps stays where it is. Use the current count for the thing you're counting right now and Total taps for your all-time number.
+
 ## 2.0.0 - 2026-11-12
 
 ### Changed: Tally now opens in dark mode
