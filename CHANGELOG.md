@@ -1,5 +1,15 @@
 # Changelog
 
+## 1.4.2 - 2026-11-11
+
+## Improved
+
+### A clearer Reset button for screen reader users
+
+Screen readers and other assistive technologies now announce the Reset button as **"Reset count to zero"** instead of just "Reset", so you know what the button does before you press it. The button still shows the word "Reset" on screen. The spoken name starts with that same word, so voice-control users can still press it by saying "Reset".
+
+The button works the same way as before: pressing it still sets the count back to zero.
+
 ## 1.4.1 - 2026-11-11
 
 ## Improved
