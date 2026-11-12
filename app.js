@@ -8,6 +8,7 @@
   const subtractOneButton = document.getElementById("subtract-one-button");
   const tapButton = document.getElementById("tap-button");
   const addFiveButton = document.getElementById("add-five-button");
+  const addTenButton = document.getElementById("add-ten-button");
   const resetButton = document.getElementById("reset-button");
   const liveRegion = document.getElementById("live-region");
 
@@ -118,6 +119,9 @@
   });
   addFiveButton.addEventListener("click", function () {
     addToCount(5, addFiveButton);
+  });
+  addTenButton.addEventListener("click", function () {
+    addToCount(10, addTenButton);
   });
   resetButton.addEventListener("click", reset);
 
