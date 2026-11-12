@@ -70,6 +70,12 @@ test("the dark and light schemes resolve to different grounds", async ({
   expect(light.background).not.toBe(dark.background);
 });
 
+test("with no colour-scheme preference the page is dark", async ({ page }) => {
+  const dark = await load(page, "dark");
+  const none = await load(page, "no-preference");
+  expectNear(none.background, DARK);
+  expect(none.background).toBe(dark.background);
+});
 for (const scheme of ["dark", "light"]) {
   test(`${scheme} scheme meets text and ring contrast`, async ({ page }) => {
     const m = await load(page, scheme);
