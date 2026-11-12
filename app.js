@@ -2,9 +2,11 @@
   "use strict";
 
   const STORAGE_KEY = "tally.count";
+  const TOTAL_KEY = "tally.total";
   const HISTORY_LIMIT = 5;
 
   const countEl = document.getElementById("count");
+  const totalEl = document.getElementById("total-value");
   const dateEl = document.getElementById("today");
   const subtractOneButton = document.getElementById("subtract-one-button");
   const tapButton = document.getElementById("tap-button");
@@ -36,26 +38,32 @@
 
   const hasStorage = storageAvailable();
 
-  function readStored() {
-    if (!hasStorage) return 0;
+  // Raw stored string for a key, or null when storage is unavailable or throws.
+  function readRaw(key) {
+    if (!hasStorage) return null;
     try {
-      return parseCount(localStorage.getItem(STORAGE_KEY));
+      return localStorage.getItem(key);
     } catch {
       // Storage became unreadable after the probe: start from zero in memory.
-      return 0;
+      return null;
     }
   }
 
-  function writeStored(value) {
+  function writeStored(key, value) {
     if (!hasStorage) return;
     try {
-      localStorage.setItem(STORAGE_KEY, String(value));
+      localStorage.setItem(key, String(value));
     } catch {
-      // Storage became unwritable mid-session: the in-memory count stays authoritative.
+      // Storage became unwritable mid-session: the in-memory value stays authoritative.
     }
   }
 
-  let count = readStored();
+  let count = parseCount(readRaw(STORAGE_KEY));
+  // Lifetime taps: only positive steps add to it; reset and -1 never touch it.
+  // First run with no stored total seeds it from the current count.
+  const rawTotal = readRaw(TOTAL_KEY);
+  let total = rawTotal === null ? count : parseCount(rawTotal);
+  if (rawTotal === null) writeStored(TOTAL_KEY, total);
   // Session-only: the last few counts reached by this tab's own actions.
   // Never persisted, never touched by other tabs' storage events.
   let recentCounts = [];
@@ -77,6 +85,10 @@
       "aria-disabled",
       count <= 0 ? "true" : "false",
     );
+  }
+
+  function renderTotal() {
+    totalEl.textContent = String(total);
   }
 
   function renderDate() {
@@ -108,7 +120,12 @@
     recentCounts.length = Math.min(recentCounts.length, HISTORY_LIMIT);
     render();
     renderHistory();
-    writeStored(count);
+    writeStored(STORAGE_KEY, count);
+    if (step > 0) {
+      total += step;
+      writeStored(TOTAL_KEY, total);
+      renderTotal();
+    }
     announce("Taps: " + count);
     button.focus();
   }
@@ -119,7 +136,7 @@
     recentCounts = [];
     render();
     renderHistory();
-    writeStored(count);
+    writeStored(STORAGE_KEY, count);
     announce("Count reset to 0");
     resetButton.focus();
   }
@@ -128,9 +145,14 @@
   // mirror it on screen, without writing back or announcing (avoids chatter
   // from another tab's taps).
   window.addEventListener("storage", function (event) {
-    if (event.key !== STORAGE_KEY && event.key !== null) return;
-    count = parseCount(event.newValue);
-    render();
+    if (event.key === STORAGE_KEY || event.key === null) {
+      count = parseCount(event.newValue);
+      render();
+    }
+    if (event.key === TOTAL_KEY || event.key === null) {
+      total = parseCount(event.newValue);
+      renderTotal();
+    }
   });
 
   subtractOneButton.addEventListener("click", function () {
@@ -145,6 +167,7 @@
   resetButton.addEventListener("click", reset);
 
   render();
+  renderTotal();
   renderHistory();
   renderDate();
 })();
