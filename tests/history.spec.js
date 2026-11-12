@@ -55,6 +55,16 @@ test("history is never persisted", async ({ page }) => {
   expect(keys).toEqual([STORAGE_KEY]);
 });
 
+test("subtracting above 0 records the lower value, mixed with adds", async ({
+  page,
+}) => {
+  await seed(page, 10);
+  await page.getByRole("button", { name: "Subtract one" }).click();
+  await page.getByRole("button", { name: "Add five" }).click();
+  await page.getByRole("button", { name: "Subtract one" }).click();
+  await expect(items(page)).toHaveText(["13", "14", "9"]);
+});
+
 test("-1 at 0 adds no entry", async ({ page }) => {
   await page.goto("/");
   await page
