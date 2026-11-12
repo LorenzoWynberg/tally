@@ -1,5 +1,15 @@
 # Changelog
 
+## 1.6.0 - 2026-11-12
+
+## New
+
+### Haptic feedback on every tap
+
+Tally now gives a short vibration each time you tap **+** or **−**, so you can feel the count change without looking at the screen. This helps when you're counting people at a door, laps, reps, or anything else that keeps your eyes busy.
+
+The pulse only plays on devices and browsers that support vibration, which is most Android phones. Where vibration isn't available, as with iOS Safari and desktop browsers, the counter works the same as before, with no errors or missing controls. There's nothing to set up: if your device can vibrate, you'll feel it.
+
 ## 1.5.0 - 2026-11-11
 
 ## New
