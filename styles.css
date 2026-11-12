@@ -274,6 +274,14 @@ body {
   overflow-wrap: anywhere;
 }
 
+.total-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: var(--tally-space-2) var(--tally-space-4);
+}
+
 .history[hidden] {
   display: none;
 }

@@ -26,7 +26,17 @@
       <p class="count">
         <span class="visually-hidden">Taps: </span><span id="count">0</span>
       </p>
-      <p class="total" id="total">Total taps <span id="total-value">0</span></p>
+      <div class="total-row">
+        <!-- prettier-ignore -->
+        <p class="total" id="total">Total taps <span id="total-value">0</span></p>
+        <button
+          type="button"
+          id="clear-total-button"
+          class="reset-button clear-total-button"
+        >
+          Clear total
+        </button>
+      </div>
       <section class="history" id="history" hidden>
         <h2 id="history-heading" class="history-heading">Recent counts</h2>
         <ol
