@@ -26,6 +26,7 @@
       <p class="count">
         <span class="visually-hidden">Taps: </span><span id="count">0</span>
       </p>
+      <p class="total" id="total">Total taps <span id="total-value">0</span></p>
       <section class="history" id="history" hidden>
         <h2 id="history-heading" class="history-heading">Recent counts</h2>
         <ol
@@ -59,6 +60,14 @@
           aria-label="+5, add five"
         >
           +5
+        </button>
+        <button
+          type="button"
+          id="add-ten-button"
+          class="add-five-button add-ten-button"
+          aria-label="+10, add ten"
+        >
+          +10
         </button>
       </div>
       <button type="button" id="reset-button" class="reset-button">

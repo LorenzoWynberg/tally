@@ -265,6 +265,15 @@ body {
   line-height: var(--tally-line-height-normal);
 }
 
+.total {
+  margin: 0;
+  color: var(--tally-color-muted);
+  font-size: var(--tally-font-size-sm);
+  line-height: var(--tally-line-height-normal);
+  font-variant-numeric: tabular-nums;
+  overflow-wrap: anywhere;
+}
+
 .history[hidden] {
   display: none;
 }
@@ -297,6 +306,24 @@ body {
   align-items: center;
   justify-content: center;
   gap: var(--tally-space-2);
+}
+
+/* +10 sits on a second row of its own, so the -1 / +1 / +5 row keeps +1
+   centred and full size. The empty ::after forces the wrap. */
+.actions {
+  flex-wrap: wrap;
+}
+
+.actions::after {
+  content: "";
+  order: 1;
+  flex: 0 0 100%;
+  height: 0;
+  margin-top: calc(-1 * var(--tally-space-2));
+}
+
+.add-ten-button {
+  order: 2;
 }
 
 .tap-button {
