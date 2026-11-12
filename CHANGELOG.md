@@ -1,5 +1,17 @@
 # Changelog
 
+## 1.4.1 - 2026-11-11
+
+## Improved
+
+### The date under the title is now machine-readable
+
+The date shown under the tally page's title is now marked up as a proper date, carrying the exact calendar date alongside the text you see. Screen readers and other assistive tools can now read it as a real date without having to work it out from the display text. Scripts and automated checks can read the date the same way, with no guessing about format.
+
+The machine-readable date always matches the date on screen, because both come from your device's local date, not a server or UTC clock. If you open the page near midnight, both show the same day, so neither one jumps ahead or lags behind.
+
+The page looks and works the same as before. Nothing changes in how you count, and you don't need to do anything.
+
 ## 1.4.0 - 2026-11-11
 
 ## 1.3.1 - 2026-11-11
@@ -32,6 +44,6 @@ The count label now reads **"Taps:"**, and screen readers announce the same word
 
 ### Clearer search results and link previews
 
-When Tally appears in search results or someone shares a link to it, the preview now shows a short, accurate description: *"Tally: a calm, minimal tap counter. Tap +1 to count; your count is saved on this device."* That tells people what Tally does before they open it: tap to count, and the count stays on their device. The page carries exactly one description, so search engines and link-preview tools all pick up the same text.
+When Tally appears in search results or someone shares a link to it, the preview now shows a short, accurate description: _"Tally: a calm, minimal tap counter. Tap +1 to count; your count is saved on this device."_ That tells people what Tally does before they open it: tap to count, and the count stays on their device. The page carries exactly one description, so search engines and link-preview tools all pick up the same text.
 
 Nothing changes once you open Tally. The counter, the buttons and the look are all the same, and any count you've already saved on your device is kept.
