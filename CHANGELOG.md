@@ -1,5 +1,19 @@
 # Changelog
 
+## 1.5.0 - 2026-11-11
+
+## New
+
+### Recent counts under the counter
+
+A **Recent counts** list now sits below the number and shows the last five counts you reached, newest first. If you mis-tap or lose your place, you can check what the count was a moment ago.
+
+The list is empty when you open the page, so it looks the same as before until you start tapping.
+
+## Good to know
+
+The list lives only in the tab you're using. It isn't saved, so reloading the page clears it, even though your current count is still kept. When you confirm a reset, the list clears too; if you cancel the reset, nothing changes. If you have Tally open in more than one tab, each tab's list shows only the taps made in that tab, even when the current count syncs across tabs. A reset made in another tab doesn't clear this tab's list.
+
 ## 1.4.0 - 2026-11-11
 
 ## 1.3.1 - 2026-11-11
