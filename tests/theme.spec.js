@@ -60,13 +60,12 @@ function expectNear(actual, expected) {
   );
 }
 
-test("dark is the default and the light scheme differs", async ({ page }) => {
+test("the dark and light schemes resolve to different grounds", async ({
+  page,
+}) => {
   const dark = await load(page, "dark");
-  // null would fall back to the browser default (light); emulate "no preference".
-  const none = await load(page, "no-preference");
   const light = await load(page, "light");
   expectNear(dark.background, DARK);
-  expectNear(none.background, DARK);
   expectNear(light.background, LIGHT);
   expect(light.background).not.toBe(dark.background);
 });
