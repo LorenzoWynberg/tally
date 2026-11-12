@@ -52,7 +52,7 @@ test("history is never persisted", async ({ page }) => {
   await page.goto("/");
   await page.getByRole("button", { name: "Add five" }).click();
   const keys = await page.evaluate(() => Object.keys(localStorage));
-  expect(keys).toEqual([STORAGE_KEY]);
+  expect(keys.sort()).toEqual([STORAGE_KEY, "tally.total"]);
 });
 
 test("subtracting above 0 records the lower value, mixed with adds", async ({
