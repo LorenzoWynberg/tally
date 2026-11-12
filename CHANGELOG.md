@@ -1,5 +1,17 @@
 # Changelog
 
+## 1.4.1 - 2026-11-11
+
+## Improved
+
+### The date under the title is now machine-readable
+
+The date shown under the tally page's title is now marked up as a proper date, carrying the exact calendar date alongside the text you see. Screen readers and other assistive tools can now read it as a real date without having to work it out from the display text. Scripts and automated checks can read the date the same way, with no guessing about format.
+
+The machine-readable date always matches the date on screen, because both come from your device's local date, not a server or UTC clock. If you open the page near midnight, both show the same day, so neither one jumps ahead or lags behind.
+
+The page looks and works the same as before. Nothing changes in how you count, and you don't need to do anything.
+
 ## 1.4.0 - 2026-11-11
 
 ## 1.3.1 - 2026-11-11
