@@ -308,6 +308,24 @@ body {
   gap: var(--tally-space-2);
 }
 
+/* +10 sits on a second row of its own, so the -1 / +1 / +5 row keeps +1
+   centred and full size. The empty ::after forces the wrap. */
+.actions {
+  flex-wrap: wrap;
+}
+
+.actions::after {
+  content: "";
+  order: 1;
+  flex: 0 0 100%;
+  height: 0;
+  margin-top: calc(-1 * var(--tally-space-2));
+}
+
+.add-ten-button {
+  order: 2;
+}
+
 .tap-button {
   flex: 1 1 auto;
   min-width: 0;

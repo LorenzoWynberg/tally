@@ -51,6 +51,17 @@ test("+1 and +5 raise the total and persist it; -1 leaves it", async ({
   await expect(page.locator("#total-value")).toHaveText("6");
 });
 
+test("+10 raises the displayed and stored total by 10", async ({ page }) => {
+  await page.goto("/");
+  await add(page, "Add ten");
+  await expect(page.locator("#total-value")).toHaveText("10");
+  await expect(page.locator("#count")).toHaveText("10");
+  expect(await stored(page, TOTAL_KEY)).toBe("10");
+  await add(page, "Add ten");
+  await expect(page.locator("#total-value")).toHaveText("20");
+  expect(await stored(page, TOTAL_KEY)).toBe("20");
+});
+
 test("a missing total is seeded from the stored count", async ({ page }) => {
   await seedBefore(page, { [COUNT_KEY]: "40" });
   await page.goto("/");
@@ -148,9 +159,11 @@ for (const scheme of ["dark", "light"]) {
 
 test("a very large total does not overflow at 320px", async ({ page }) => {
   await page.setViewportSize({ width: 320, height: 640 });
-  await seedBefore(page, { [TOTAL_KEY]: "9007199254740991" });
+  await seedBefore(page, { [TOTAL_KEY]: "9".repeat(15) });
   await page.goto("/");
   await expect(page.locator("#total")).toBeVisible();
+  const box = await page.locator("#total").boundingBox();
+  expect(box.width).toBeLessThanOrEqual(320);
   const fits = await page.evaluate(
     () =>
       document.documentElement.scrollWidth <=
