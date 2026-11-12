@@ -191,6 +191,32 @@ body {
   line-height: var(--leading-normal);
 }
 
+.history[hidden] {
+  display: none;
+}
+
+.history-heading {
+  margin: 0 0 var(--spacing-2);
+  color: var(--muted);
+  font-size: var(--text-sm);
+  line-height: var(--leading-normal);
+  font-weight: 400;
+}
+
+.history-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: var(--spacing-2);
+  color: var(--muted);
+  font-size: var(--text-base);
+  font-variant-numeric: tabular-nums;
+  overflow-wrap: anywhere;
+}
+
 .actions {
   width: 100%;
   display: flex;

@@ -2,6 +2,7 @@
   "use strict";
 
   const STORAGE_KEY = "tally.count";
+  const HISTORY_LIMIT = 5;
 
   const countEl = document.getElementById("count");
   const dateEl = document.getElementById("today");
@@ -10,6 +11,8 @@
   const addFiveButton = document.getElementById("add-five-button");
   const resetButton = document.getElementById("reset-button");
   const liveRegion = document.getElementById("live-region");
+  const historySection = document.getElementById("history");
+  const historyList = document.getElementById("history-list");
 
   // A stored count is valid only as a non-negative base-10 integer string.
   function parseCount(value) {
@@ -53,6 +56,20 @@
   }
 
   let count = readStored();
+  // Session-only: the last few counts reached by this tab's own actions.
+  // Never persisted, never touched by other tabs' storage events.
+  let recentCounts = [];
+
+  function renderHistory() {
+    historyList.replaceChildren(
+      ...recentCounts.map(function (value) {
+        const item = document.createElement("li");
+        item.textContent = String(value);
+        return item;
+      }),
+    );
+    historySection.hidden = recentCounts.length === 0;
+  }
 
   function render() {
     countEl.textContent = String(count);
@@ -80,7 +97,10 @@
     const next = Math.max(0, count + step);
     if (next === count) return;
     count = next;
+    recentCounts.unshift(count);
+    recentCounts.length = Math.min(recentCounts.length, HISTORY_LIMIT);
     render();
+    renderHistory();
     writeStored(count);
     announce("Taps: " + count);
     button.focus();
@@ -89,7 +109,9 @@
   function reset() {
     if (!window.confirm("Reset the count to zero?")) return;
     count = 0;
+    recentCounts = [];
     render();
+    renderHistory();
     writeStored(count);
     announce("Count reset to 0");
     resetButton.focus();
@@ -116,5 +138,6 @@
   resetButton.addEventListener("click", reset);
 
   render();
+  renderHistory();
   renderDate();
 })();
