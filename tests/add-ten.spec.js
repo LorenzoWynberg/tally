@@ -110,7 +110,9 @@ test("Enter and Space on the focused +10 button each add ten, and show a visible
   const addTen = page.getByRole("button", { name: "Add ten" });
   const count = page.locator("#count");
 
-  await addTen.focus();
+  await page.getByRole("button", { name: "Add five" }).focus();
+  await page.keyboard.press("Tab");
+  await expect(addTen).toBeFocused();
   await page.keyboard.press("Enter");
   await expect(count).toHaveText("10");
   await page.keyboard.press("Space");
