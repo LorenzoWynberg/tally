@@ -191,12 +191,37 @@ body {
   line-height: var(--leading-normal);
 }
 
+/* +1 stays centred: -1 sits left of it, +5 over +10 sit right of it. */
 .actions {
   width: 100%;
-  display: flex;
+  display: grid;
+  grid-template-columns: 1fr minmax(0, auto) 1fr;
   align-items: center;
   justify-content: center;
   gap: var(--spacing-2);
+}
+
+.subtract-one-button {
+  grid-column: 1;
+  grid-row: 1 / span 2;
+  justify-self: end;
+}
+
+.tap-button {
+  grid-column: 2;
+  grid-row: 1 / span 2;
+}
+
+.add-five-button {
+  grid-column: 3;
+  grid-row: 1;
+  justify-self: start;
+}
+
+.add-ten-button {
+  grid-column: 3;
+  grid-row: 2;
+  justify-self: start;
 }
 
 .tap-button {
@@ -230,9 +255,10 @@ body {
   outline-offset: 4px;
 }
 
-.add-five-button {
-  flex: 0 0 var(--control-min-touch);
-  width: var(--control-min-touch);
+.add-five-button,
+.add-ten-button {
+  flex: 0 0 auto;
+  min-width: var(--control-min-touch);
   min-height: var(--control-min-touch);
   padding: var(--spacing-2);
   border: 2px solid var(--secondary);
@@ -251,11 +277,13 @@ body {
   transition: transform var(--duration-fast) var(--ease-entrance);
 }
 
-.add-five-button:active {
+.add-five-button:active,
+.add-ten-button:active {
   transform: scale(0.95);
 }
 
-.add-five-button:focus-visible {
+.add-five-button:focus-visible,
+.add-ten-button:focus-visible {
   outline: 3px solid var(--ring);
   outline-offset: 4px;
 }
@@ -350,12 +378,14 @@ body {
 @media (prefers-reduced-motion: reduce) {
   .tap-button,
   .add-five-button,
+  .add-ten-button,
   .subtract-one-button {
     transition: none;
   }
 
   .tap-button:active,
   .add-five-button:active,
+  .add-ten-button:active,
   .subtract-one-button:active {
     transform: none;
   }
