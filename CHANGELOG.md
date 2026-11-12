@@ -1,5 +1,17 @@
 # Changelog
 
+## 1.4.3 - 2026-11-11
+
+## New
+
+### A +10 button
+
+A new **+10** button sits right beside **+5**, so you can add ten to your count with a single tap. Big tallies now take far fewer taps: getting to 100 used to mean 20 presses of +5, and now it takes 10 presses of +10.
+
+### Works just like +1 and +5
+
++10 behaves exactly like the buttons you already use. Your count is saved as soon as you tap it. Any other tabs you have open update to match. Screen readers announce the new total the same way they do for +1 and +5. Nothing else about Tally has changed.
+
 ## 1.4.2 - 2026-11-11
 
 ## Improved
