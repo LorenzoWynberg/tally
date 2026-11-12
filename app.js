@@ -63,13 +63,19 @@
   }
 
   function renderDate() {
+    const now = new Date();
     const formatter = new Intl.DateTimeFormat(undefined, {
       day: "numeric",
       month: "long",
       year: "numeric",
     });
     dateEl.lang = formatter.resolvedOptions().locale;
-    dateEl.textContent = formatter.format(new Date());
+    dateEl.textContent = formatter.format(now);
+    const pad = (n) => String(n).padStart(2, "0");
+    dateEl.setAttribute(
+      "datetime",
+      `${now.getFullYear()}-${pad(now.getMonth() + 1)}-${pad(now.getDate())}`,
+    );
   }
 
   function announce(message) {
